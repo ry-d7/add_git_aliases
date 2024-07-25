@@ -47,11 +47,12 @@ ALIASES[tag,short]="t"
 for key in "${ALIASKEYS[@]}"; do
     command="${ALIASES[${key},command]}"
     short="${ALIASES[${key},short]}"
+    # echo ${short} ${command}
     git config --global --get alias.${short} > /dev/null 2>&1
     if [ $? = 0 ]; then
         echo "git alias ${short} already exists"
     else
         echo "add git alias ${short}"
-        git config --global alias.${short} ${command}
+        echo \"${command}\" | xargs git config --global alias.${short}
     fi
 done
